@@ -17,6 +17,16 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+  client:
+    container_name: modular-form-creator-frontend
+    env_file:
+      - .env
+    build: .
+    ports:
+      - '5173:5173'
+    volumes:
+      - .:/app
+      - /app/node_modules
 
 volumes:
   mongo_data:

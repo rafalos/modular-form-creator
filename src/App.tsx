@@ -1,23 +1,49 @@
-import styled from 'styled-components'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import ResourcePage from './pages/ResourcesPage'
+import ResourceLayout from './layouts/ResourceLayout'
+import ResourceDetailsPage from './pages/ResourceDetailsPage'
+import { AppShell } from './shared/Layout'
+import { ToastContainer } from 'react-toastify'
+import { ResourceBufferProvider } from './store/ResourceBufferProvider'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Navigate to="/resources" replace />,
+  },
+  {
+    path: '/resources',
+    element: <ResourcePage />,
+  },
+  {
+    path: '/resources/:resourceId',
+    element: <ResourceLayout />,
+    children: [
+      {
+        path: 'basic-info',
+        element: null,
+      },
+      {
+        path: 'project-details',
+        element: null,
+      },
+    ],
+  },
+  {
+    path: '/resources/:resourceId/details',
+    element: <ResourceDetailsPage />,
+  },
+])
 
 function App() {
   return (
     <AppShell>
-      <Message>Good luck!</Message>
+      <ToastContainer />
+      <ResourceBufferProvider>
+        <RouterProvider router={router} />
+      </ResourceBufferProvider>
     </AppShell>
   )
 }
-
-const AppShell = styled.div`
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const Message = styled.h1`
-  font-size: 2.5rem;
-  color: ${({ theme }) => theme.colors.inkStrong};
-`
 
 export default App
