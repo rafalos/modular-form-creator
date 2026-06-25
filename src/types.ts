@@ -48,6 +48,7 @@ export type Field = {
   name: string
   label: string
   value: string | string[]
+  id: number
 }
 
 export type ModulePreviewModel = {

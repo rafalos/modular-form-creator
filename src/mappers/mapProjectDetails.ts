@@ -8,21 +8,25 @@ export const mapProjectDetails = (
   editRoute: `/resources/${id}/project-details`,
   fields: [
     {
+      id: 1,
       label: 'Project name',
       name: 'projectName',
       value: projectName,
     },
     {
+      id: 2,
       label: 'Budget',
       name: 'budget',
       value: budget,
     },
     {
+      id: 3,
       label: 'Category',
       name: 'category',
       value: category || 'internal',
     },
     {
+      id: 4,
       label: 'Options',
       name: 'options',
       value: options,

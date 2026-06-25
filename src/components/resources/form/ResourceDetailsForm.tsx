@@ -14,12 +14,7 @@ type Props = {
   loading: boolean
 }
 
-const ResourceDetailsForm = ({
-  fields,
-  onValueSubmit,
-  buffered,
-  loading
-}: Props) => {
+const ResourceDetailsForm = ({ fields, onValueSubmit, buffered, loading }: Props) => {
   const [form, setForm] = useState<FormState>(() => getInitialFormState(fields))
   const [errors, setErrors] = useState<Record<string, string>>({})
 
@@ -50,11 +45,12 @@ const ResourceDetailsForm = ({
 
   return (
     <Form onSubmit={(event) => onFormSubmit(event)}>
-      {fields.map(({ name, label }) => {
+      {fields.map(({ name, label, id }) => {
         switch (name) {
           case 'priority':
             return (
               <Select
+                key={id}
                 value={form[name]}
                 label={label}
                 options={PRIORITY_VALUES.map((value) => ({
@@ -67,6 +63,7 @@ const ResourceDetailsForm = ({
           case 'category':
             return (
               <Select
+                key={id}
                 value={form[name]}
                 label={label}
                 options={CATEGORY_VALUES.map((value) => ({
@@ -79,6 +76,7 @@ const ResourceDetailsForm = ({
           case 'options':
             return (
               <CheckboxGroup
+                key={id}
                 value={form[name] as string[]}
                 label="Options"
                 onChange={(vals) => {
@@ -90,6 +88,7 @@ const ResourceDetailsForm = ({
           default:
             return (
               <Input
+                key={id}
                 value={form[name]}
                 disabled={name === 'resourceName'}
                 label={label}
@@ -100,7 +99,9 @@ const ResourceDetailsForm = ({
         }
       })}
 
-      <Button disabled={loading}>{loading? <LoadingSpinner /> : buffered ? 'Save changes' : 'Submit'}</Button>
+      <Button disabled={loading}>
+        {loading ? <LoadingSpinner /> : buffered ? 'Save changes' : 'Submit'}
+      </Button>
     </Form>
   )
 }

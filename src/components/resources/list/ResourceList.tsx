@@ -18,7 +18,7 @@ const ResourceList = ({ resources, onDeleteResource, loading }: Props) => {
     <ListSection>
       <SectionHeading>Resources</SectionHeading>
       {resources.map((resource) => (
-        <ResourceListItem resource={resource} onDeleteResource={onDeleteResource} loading={loading}/>
+        <ResourceListItem resource={resource} onDeleteResource={onDeleteResource} loading={loading} key={resource.resourceId}/>
       ))}
     </ListSection>
   )
